@@ -305,18 +305,22 @@ THE SOFTWARE.
     (axltxl/define-key "wv" 'split-window-right)
     (axltxl/define-key "ws" 'split-window-below)
     #+END_SRC
+
 ***** Delete window
     #+BEGIN_SRC emacs-lisp
     (axltxl/define-key "wd" 'delete-window)
     #+END_SRC
+
 ***** Balance windows
     #+BEGIN_SRC emacs-lisp
     (axltxl/define-key "w=" 'balance-windows)
     #+END_SRC
+
 ***** Maximize window
     #+BEGIN_SRC emacs-lisp
     (axltxl/define-key "wm" 'maximize-window)
     #+END_SRC
+
 ***** Use =winner= to undo/redo window manipulation
     #+BEGIN_SRC emacs-lisp
     (axltxl/define-key "wu" 'winner-undo)
@@ -330,6 +334,7 @@ THE SOFTWARE.
     (axltxl/define-key "wh" 'windmove-left)
     (axltxl/define-key "wl" 'windmove-right)
     #+END_SRC
+
 *** Frames
 **** Create new frame
     #+BEGIN_SRC emacs-lisp
@@ -457,7 +462,6 @@ THE SOFTWARE.
    #+END_SRC
 
 *** Toggle current theme
-
    #+BEGIN_SRC emacs-lisp
    (defun axltxl/toggle-theme ()
        (interactive)
@@ -619,7 +623,7 @@ THE SOFTWARE.
         "\"Only dead fish go with the flow\" - Andy Hunt. Pragmatic Thinking and Learning."])
     #+END_SRC
 
-**** /emacs-dashboard/
+**** =emacs-dashboard=
     The awesome emacs dashboard
     [[[[https://github.com/emacs-dashboard/emacs-dashboard]]]]
 
@@ -916,7 +920,7 @@ THE SOFTWARE.
     #+END_SRC
 
 * Project management
-** /projectile/
+** =projectile=
     #+BEGIN_SRC emacs-lisp
     (use-package projectile
     :demand t
@@ -934,12 +938,12 @@ THE SOFTWARE.
     (axltxl/define-key "pf" 'projectile-find-file)
     #+END_SRC
 ** git
-*** /git-gutter/
+*** =git-gutter=
     #+BEGIN_SRC emacs-lisp
     (use-package git-gutter :config (global-git-gutter-mode t))
     #+END_SRC
 
-*** /magit/
+*** =magit=
     #+BEGIN_SRC emacs-lisp
     (use-package magit :after general)
     #+END_SRC
@@ -956,7 +960,7 @@ THE SOFTWARE.
     (axltxl/define-key "gs" 'magit-status)
     #+END_SRC
 ** File types Support
-*** YAML (/yaml-mode/)
+*** YAML (=yaml-mode=)
     #+BEGIN_SRC emacs-lisp
     (use-package yaml-mode
     :config
