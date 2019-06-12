@@ -39,10 +39,18 @@ THE SOFTWARE.
     :config (evil-mode 1))
     #+END_SRC
 
-*** Leader key setup via general.el
-**** Leader Key
+*** Leader key setup via =general.el=
+**** Define leader key
     #+BEGIN_SRC emacs-lisp
     (defconst axltxl/leader-key "SPC")
+    #+END_SRC
+
+**** =axltxl/general-leader-def=
+     Through =general.el=, a prefixed keybinding definer is generated. This
+     is useful for key binding definitions without having to specify a prefix
+     every time.
+
+    #+BEGIN_SRC emacs-lisp
     (use-package general
         :demand t
         :after (evil which-key)
@@ -51,7 +59,23 @@ THE SOFTWARE.
         (general-create-definer axltxl/general-leader-def :prefix axltxl/leader-key))
     #+END_SRC
 
-**** All prefixed key combinations are relabeled on which-key via /general.el/
+**** =axltxl/define-key=
+     This function relies on the prefixed key binding generator
+     =axltxl/general-leader-def= and it's ultimately used to
+     create prefixed key bindings all throughout the configuration.
+
+    #+BEGIN_SRC emacs-lisp
+    (defun axltxl/define-key (key ecmd &rest keydefs)
+    (axltxl/general-leader-def
+        :keymaps 'override
+        :states '(normal visual motion emacs)
+        key ecmd)
+    (if keydefs (apply 'axltxl/define-key keydefs)))
+    #+END_SRC
+
+**** Label all subprefixes
+     All prefixed key combinations are relabeled on which-key via =general.el=
+
     #+BEGIN_SRC emacs-lisp
     (general-define-key
     :prefix axltxl/leader-key
@@ -70,16 +94,6 @@ THE SOFTWARE.
     "oc" '(nil :which-key "org-capture"))
     #+END_SRC
 
-**** Prefix definition
-    #+BEGIN_SRC emacs-lisp
-    (defun axltxl/define-key (key ecmd &rest keydefs)
-    (axltxl/general-leader-def
-        :keymaps 'override
-        :states '(normal visual motion emacs)
-        key ecmd)
-    (if keydefs (apply 'axltxl/define-key keydefs)))
-    #+END_SRC
-
 ** Configuration Workflow
 *** Main constants
     #+BEGIN_SRC emacs-lisp
@@ -94,6 +108,7 @@ THE SOFTWARE.
         (load-file axltxl/emacs-init-file))
     #+END_SRC
 
+**** Prefixed Key Bindings
     #+BEGIN_SRC emacs-lisp
     (axltxl/define-key "er" 'axltxl/config-restart)
     #+END_SRC
@@ -105,6 +120,7 @@ THE SOFTWARE.
         (find-file axltxl/emacs-init-file))
     #+END_SRC
 
+**** Prefixed Key Bindings
     #+BEGIN_SRC emacs-lisp
     (axltxl/define-key "ed" 'axltxl/init-edit)
     #+END_SRC
@@ -116,6 +132,7 @@ THE SOFTWARE.
         (find-file axltxl/emacs-org-file))
     #+END_SRC
 
+**** Prefixed Key Bindings
     #+BEGIN_SRC emacs-lisp
     (axltxl/define-key "eo" 'axltxl/org-edit)
     #+END_SRC
@@ -234,8 +251,9 @@ THE SOFTWARE.
     #+END_SRC
 
 *** =avy=
-    emacs + /easymotion/ = avy
+    emacs + =easymotion= = =avy=
 
+**** Prefixed Key Bindings
     #+BEGIN_SRC emacs-lisp
     (use-package avy)
     (axltxl/define-key "jw" 'avy-goto-word-1)
@@ -245,6 +263,7 @@ THE SOFTWARE.
 *** Text scaling
     Increase/decrease font size
 
+**** Prefixed Key Bindings
     #+BEGIN_SRC emacs-lisp
     (axltxl/define-key "/" 'text-scale-increase)
     (axltxl/define-key "." 'text-scale-decrease)
@@ -291,6 +310,7 @@ THE SOFTWARE.
     #+BEGIN_SRC emacs-lisp
     (load custom-file 'noerror)
     #+END_SRC
+
 * User Interface
 ** Window Management
 *** Windows
@@ -606,7 +626,6 @@ THE SOFTWARE.
     #+END_SRC
 
 **** Select a random image
-
     #+BEGIN_SRC emacs-lisp
     (setq axltxl/emacs-splash-dir (concat user-emacs-directory "splash"))
     (setq axltxl/splash-image
@@ -615,7 +634,6 @@ THE SOFTWARE.
     #+END_SRC
 
 **** Select a random title
-
     #+BEGIN_SRC emacs-lisp
     (setq axltxl/emacs-dashboard-titles
     [ "You rock today!"
@@ -691,7 +709,8 @@ THE SOFTWARE.
         "M-h" 'ivy-backward-delete-char))
     #+END_SRC
 
-**** M-x (thanks to /counsel/)
+**** Prefixed Key Bindings
+***** M-x (thanks to =counsel=)
     #+BEGIN_SRC emacs-lisp
     (axltxl/define-key "SPC" 'counsel-M-x)
     #+END_SRC
@@ -724,8 +743,8 @@ THE SOFTWARE.
     (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
     #+END_SRC
 
-**** Key Bindings
-***** Toggle /neotree/
+**** Prefix Key Bindings
+***** Toggle =neotree=
     #+BEGIN_SRC emacs-lisp
     (axltxl/define-key "ft" 'neotree-toggle)
     #+END_SRC
@@ -753,6 +772,7 @@ THE SOFTWARE.
     #+BEGIN_SRC emacs-lisp
     (axltxl/define-key "pt" 'neotree/project-dir)
     #+END_SRC
+
 * Org Mode (or how do I organize my life)
 ** Directory locations
    #+BEGIN_SRC emacs-lisp
@@ -778,13 +798,13 @@ THE SOFTWARE.
    :demand t
    :config
 
-   ;; todo lists keywords
+   ;; TODO lists keywords
    (setq org-todo-keywords
        '((sequence "TODO" "|" "DONE" "CANCELLED"))))
    #+END_SRC
 
 ** =org-bullets=
-   UTF-8 fancy bullets for /org-mode/
+   UTF-8 fancy bullets for =org-mode=
 
    #+BEGIN_SRC emacs-lisp
    (use-package org-bullets
@@ -811,10 +831,13 @@ THE SOFTWARE.
        org-journal-time-prefix "* "
        org-journal-time-format "%H:%M:%S => "
    ))
-
-   ;; Prefixed Key Bindings for org-agenda
-   (axltxl/define-key "oja" 'org-journal-new-entry)
    #+END_SRC
+
+*** Prefixed Key Bindings
+**** Create a new entry in the journal
+    #+BEGIN_SRC emacs-lisp
+    (axltxl/define-key "oja" 'org-journal-new-entry)
+    #+END_SRC
 
 ** =org-agenda=
    #+BEGIN_SRC emacs-lisp
@@ -831,8 +854,10 @@ THE SOFTWARE.
    :config
    ;; Initial agenda files
    (setq org-agenda-files `(,(concat axltxl/org-home "tasks.org"))))
+   #+END_SRC
 
-   ;; Prefixed Key Bindings for org-agenda
+*** Prefixed Key Bindings
+   #+BEGIN_SRC emacs-lisp
    (axltxl/define-key "oaa" 'org-agenda)
    #+END_SRC
 
@@ -880,6 +905,7 @@ THE SOFTWARE.
            (file ,(concat org-tpl-journal-private-dir "events/github.org"))))))
    #+END_SRC
 
+*** Prefixed Key Bindings
    #+BEGIN_SRC emacs-lisp
    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
    ;; org-capture + org-journal
@@ -892,7 +918,6 @@ THE SOFTWARE.
    ;; will add the new entry as a child entry.
    (goto-char (point-min)))
 
-   ;;;; Prefixed Key Bindings for org-capture
    (axltxl/define-key "oc" 'org-capture)
    #+END_SRC
 
@@ -914,8 +939,11 @@ THE SOFTWARE.
         (defun org-projectile/goto-todos ()
         (interactive)
         (org-projectile-goto-location-for-project (projectile-project-name)))
+    #+END_SRC
 
-    ;; Key bindings for org-projectile
+*** Prefixed Key Bindings
+**** Open TODO list for a project
+    #+BEGIN_SRC emacs-lisp
     (axltxl/define-key "po" 'org-projectile/goto-todos)
     #+END_SRC
 
@@ -927,7 +955,7 @@ THE SOFTWARE.
     :config (projectile-mode +1))
     #+END_SRC
 
-*** Key Bindings
+*** Prefixed Key Bindings
 **** Switch to project
     #+BEGIN_SRC emacs-lisp
     (axltxl/define-key "pp" 'projectile-switch-project)
@@ -949,16 +977,18 @@ THE SOFTWARE.
     #+END_SRC
 
 **** Key bindings
-    Gotta be honest. /evil-magit/ does a wonderful job for that
+    Gotta be honest. =evil-magit= does a wonderful job for that
 
     #+BEGIN_SRC emacs-lisp
     (use-package evil-magit :after magit)
     #+END_SRC
 
-    This one will trigger /magit-status/
+**** Prefixed Key Bindings
+***** Open up =magit-status=
     #+BEGIN_SRC emacs-lisp
     (axltxl/define-key "gs" 'magit-status)
     #+END_SRC
+
 ** File types Support
 *** YAML (=yaml-mode=)
     #+BEGIN_SRC emacs-lisp
