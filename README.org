@@ -220,14 +220,11 @@ THE SOFTWARE.
     (setq real-auto-save-interval 10))
     #+END_SRC
 
-*** /evil-nerd-commenter/
+*** [[https://github.com/redguardtoo/evil-nerd-commenter] [=evil-nerd-commenter=]]
     Comment all the things a la nerd commenter
 
     #+BEGIN_SRC emacs-lisp
-    (use-package evil-nerd-commenter
-    :after general
-    :config
-    (evilnc-default-hotkeys t t))
+    (use-package evil-nerd-commenter :after general)
     #+END_SRC
 
     /<axltxl/leader-key> ;;/ does the magic
