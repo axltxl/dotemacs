@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 * The very basics
-** /which-key/
+** =which-key=
     #+BEGIN_SRC emacs-lisp
     (use-package which-key
     :demand t
@@ -31,8 +31,8 @@ THE SOFTWARE.
     (setq which-key-idle-delay 0.25))
     #+END_SRC
 
-** The =Evil= Section
-*** Let the EVIL begin! :)
+** The =evil= Section
+*** Let the *EVIL* begin! :)
     #+BEGIN_SRC emacs-lisp
     (use-package evil
     :demand t
@@ -98,7 +98,7 @@ THE SOFTWARE.
     (axltxl/define-key "er" 'axltxl/config-restart)
     #+END_SRC
 
-*** Edit /init.el/
+*** Edit =init.el=
     #+BEGIN_SRC emacs-lisp
     (defun axltxl/init-edit ()
         (interactive)
@@ -121,12 +121,12 @@ THE SOFTWARE.
     #+END_SRC
 
 ** Text Editing
-*** /auto-complete/
+*** =auto-complete=
     #+BEGIN_SRC emacs-lisp
     (use-package auto-complete :config (ac-config-default))
     #+END_SRC
 
-*** /editorconfig/
+*** =editorconfig=
     #+BEGIN_SRC emacs-lisp
     (use-package editorconfig :config (editorconfig-mode 1))
     #+END_SRC
@@ -149,7 +149,7 @@ THE SOFTWARE.
     (setq-default indent-tabs-mode nil)
     #+END_SRC
 
-*** /autopair/
+*** =autopair=
     This makes sure that brace structures (), [], {}, etc.
     are closed as soon as the opening character is typed.
 
@@ -174,7 +174,7 @@ THE SOFTWARE.
     (show-paren-mode 1)
     #+END_SRC
 
-*** /evil-unimpaired/
+*** =evil-unimpaired=
     unimpaired.vim in emacs! :)
 
     #+BEGIN_SRC emacs-lisp
@@ -185,8 +185,8 @@ THE SOFTWARE.
     (evil-unimpaired-mode))
     #+END_SRC
 
-*** /evil-surround/
-    vim-surround in emacs :)
+*** =evil-surround=
+    =vim-surround= in emacs :)
 
     #+BEGIN_SRC emacs-lisp
     (use-package evil-surround
@@ -195,7 +195,7 @@ THE SOFTWARE.
     (global-evil-surround-mode 1))
     #+END_SRC
 
-*** Highlight indentation
+*** =highlight-indent-guides=
     #+BEGIN_SRC emacs-lisp
     (use-package highlight-indent-guides
     :config
@@ -211,7 +211,7 @@ THE SOFTWARE.
     `(("." . ,(concat user-emacs-directory "backups"))))
     #+END_SRC
 
-*** /real-auto-save/
+*** =real-auto-save=
     #+BEGIN_SRC emacs-lisp
     (use-package real-auto-save
     :config
@@ -220,7 +220,8 @@ THE SOFTWARE.
     (setq real-auto-save-interval 10))
     #+END_SRC
 
-*** [[https://github.com/redguardtoo/evil-nerd-commenter] [=evil-nerd-commenter=]]
+*** =evil-nerd-commenter=
+    [[[[https://github.com/redguardtoo/evil-nerd-commenter]]]]
     Comment all the things a la nerd commenter
 
     #+BEGIN_SRC emacs-lisp
@@ -232,7 +233,7 @@ THE SOFTWARE.
     (axltxl/define-key ";" 'evilnc-comment-operator)
     #+END_SRC
 
-*** /avy/
+*** =avy=
     emacs + /easymotion/ = avy
 
     #+BEGIN_SRC emacs-lisp
@@ -264,7 +265,7 @@ THE SOFTWARE.
     (setq-default require-final-newline t)
     #+END_SRC
 
-*** NO MOUSE via /disable-mouse/
+*** NO MOUSE via =disable-mouse=
     Yep, that's right!. /No mouse/ means /no mouse/ at all ...
     [[disable-mouse][https://github.com/purcell/disable-mouse]]
 
@@ -280,20 +281,20 @@ THE SOFTWARE.
             evil-insert-state-map)))
     #+END_SRC
 
-** /custom-set-variables/
-*** /custom-set-variables/ is set on another file
+** =custom-set-variables=
+*** =custom-set-variables= is set on another file
     #+BEGIN_SRC emacs-lisp
     (setq custom-file (concat user-emacs-directory "custom.el"))
     #+END_SRC
 
-*** Load /custom-set-variables/ file
+*** Load =custom-set-variables= file
     #+BEGIN_SRC emacs-lisp
     (load custom-file 'noerror)
     #+END_SRC
 * User Interface
 ** Window Management
 *** Windows
-**** Enable /winner-mode/
+**** Enable =winner-mode=
    #+BEGIN_SRC emacs-lisp
     (use-package winner :ensure nil :config (winner-mode))
     #+END_SRC
@@ -316,7 +317,7 @@ THE SOFTWARE.
     #+BEGIN_SRC emacs-lisp
     (axltxl/define-key "wm" 'maximize-window)
     #+END_SRC
-***** Use /winner/ to undo/redo window manipulation
+***** Use =winner= to undo/redo window manipulation
     #+BEGIN_SRC emacs-lisp
     (axltxl/define-key "wu" 'winner-undo)
     (axltxl/define-key "wr" 'winner-redo)
@@ -365,12 +366,12 @@ THE SOFTWARE.
     (axltxl/define-key "bb" 'switch-to-buffer)
     #+END_SRC
 
-***** Switch to *messages*
+***** Switch to messages
     #+BEGIN_SRC emacs-lisp
     (axltxl/define-key "bm" (lambda () (interactive)(switch-to-buffer "*Messages*")))
     #+END_SRC
 
-***** Switch to *scratch*
+***** Switch to scratch
     #+BEGIN_SRC emacs-lisp
     (axltxl/define-key "bs" (lambda () (interactive)(switch-to-buffer "*scratch*")))
     #+END_SRC
@@ -469,17 +470,16 @@ THE SOFTWARE.
    (axltxl/define-key "tt" 'axltxl/toggle-theme)
    #+END_SRC
 
-*** /doom-themes/
+*** =doom-themes=
    What can I say?. They look so nice! :).
 
    #+BEGIN_SRC emacs-lisp
    (use-package doom-themes
-       :demand t
-       :config
-       (load-theme axltxl/theme-current t))
+    :demand t
+    :config (load-theme axltxl/theme-current t))
    #+END_SRC
 
-*** /doom-modeline/
+*** =doom-modeline=
    Set the real modeline now :)
 
    #+BEGIN_SRC emacs-lisp
@@ -593,7 +593,7 @@ THE SOFTWARE.
    (doom-modeline-mode 1))
    #+END_SRC
 
-** /emacs-dashboard/
+** =emacs-dashboard=
 **** Seed random number generator
     This is necessary for the functions that come afterwards.
 
@@ -659,7 +659,7 @@ THE SOFTWARE.
     (dashboard-setup-startup-hook))
     #+END_SRC
 
-** /ivy/
+** =ivy=
     #+BEGIN_SRC emacs-lisp
     (use-package counsel
     :demand t
@@ -692,7 +692,7 @@ THE SOFTWARE.
     (axltxl/define-key "SPC" 'counsel-M-x)
     #+END_SRC
 
-** /neotree/
+** =neotree=
     #+BEGIN_SRC emacs-lisp
     (use-package neotree :after (general projectile)
 
@@ -768,7 +768,7 @@ THE SOFTWARE.
    (defconst org-tpl-journal-private-dir (concat org-tpl-private-dir "journal/"))
    #+END_SRC
 
-** /org-mode/
+** =org-mode=
    #+BEGIN_SRC emacs-lisp
    (use-package org
    :demand t
@@ -779,7 +779,7 @@ THE SOFTWARE.
        '((sequence "TODO" "|" "DONE" "CANCELLED"))))
    #+END_SRC
 
-** /org-bullets/
+** =org-bullets=
    UTF-8 fancy bullets for /org-mode/
 
    #+BEGIN_SRC emacs-lisp
@@ -794,7 +794,7 @@ THE SOFTWARE.
    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
    #+END_SRC
 
-** /org-journal/
+** =org-journal=
    #+BEGIN_SRC emacs-lisp
    (use-package org-journal
    :after org
@@ -812,7 +812,7 @@ THE SOFTWARE.
    (axltxl/define-key "oja" 'org-journal-new-entry)
    #+END_SRC
 
-** /org-agenda/
+** =org-agenda=
    #+BEGIN_SRC emacs-lisp
    (use-package org-agenda
    :after org
@@ -832,7 +832,7 @@ THE SOFTWARE.
    (axltxl/define-key "oaa" 'org-agenda)
    #+END_SRC
 
-** /org-capture/
+** =org-capture=
    #+BEGIN_SRC emacs-lisp
    (use-package org-capture
    :after org
@@ -892,7 +892,7 @@ THE SOFTWARE.
    (axltxl/define-key "oc" 'org-capture)
    #+END_SRC
 
-** /org-projectile/
+** =org-projectile=
     #+BEGIN_SRC emacs-lisp
     (use-package org-projectile
         :after (org org-agenda projectile)
