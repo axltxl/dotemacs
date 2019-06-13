@@ -857,9 +857,15 @@ THE SOFTWARE.
    #+END_SRC
 
 *** Prefixed Key Bindings
-   #+BEGIN_SRC emacs-lisp
-   (axltxl/define-key "oaa" 'org-agenda)
-   #+END_SRC
+**** Open =org-agenda= menu
+    #+BEGIN_SRC emacs-lisp
+    (axltxl/define-key "oaa" 'org-agenda)
+    #+END_SRC
+
+**** Open main TODO list
+    #+BEGIN_SRC emacs-lisp
+    (axltxl/define-key "oat" 'org-todo-list)
+    #+END_SRC
 
 ** =org-capture=
    #+BEGIN_SRC emacs-lisp
