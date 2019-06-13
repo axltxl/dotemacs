@@ -39,59 +39,72 @@ THE SOFTWARE.
     :config (evil-mode 1))
     #+END_SRC
 
-*** Leader key setup via =general.el=
-**** Define leader key
+** Leader key setup via =general.el=
+*** Define leader keys
+**** General leader key
+    The general leader key is used for setting up /prefixed key bindings/ that
+    are going to be set globally in every =evil= state.
+
     #+BEGIN_SRC emacs-lisp
     (defconst axltxl/leader-key "SPC")
     #+END_SRC
 
-**** =axltxl/general-leader-def=
-     Through =general.el=, a prefixed keybinding definer is generated. This
-     is useful for key binding definitions without having to specify a prefix
-     every time.
+***** =axltxl/general-leader-def=
+      Through =general.el=, a prefixed key binding definer is generated. This
+      is useful for key binding definitions without having to specify a prefix
+      every time.
 
-    #+BEGIN_SRC emacs-lisp
-    (use-package general
-        :demand t
-        :after (evil which-key)
-        :config
-        (general-evil-setup t)
-        (general-create-definer axltxl/general-leader-def :prefix axltxl/leader-key))
-    #+END_SRC
+     #+BEGIN_SRC emacs-lisp
+     (use-package general
+         :demand t
+         :after (evil which-key)
+         :config
+         (general-evil-setup t)
+         (general-create-definer axltxl/general-leader-def :prefix axltxl/leader-key))
+     #+END_SRC
 
-**** =axltxl/define-key=
-     This function relies on the prefixed key binding generator
-     =axltxl/general-leader-def= and it's ultimately used to
-     create prefixed key bindings all throughout the configuration.
+***** =axltxl/define-key=
+      This function relies on a key binding generator
+      =axltxl/general-leader-def= and it's ultimately used to
+      create prefixed key bindings all throughout the configuration.
 
-    #+BEGIN_SRC emacs-lisp
-    (defun axltxl/define-key (key ecmd &rest keydefs)
-    (axltxl/general-leader-def
+     #+BEGIN_SRC emacs-lisp
+     (defun axltxl/define-key (key ecmd &rest keydefs)
+     (axltxl/general-leader-def
+         :keymaps 'override
+         :states '(normal visual motion emacs)
+         key ecmd)
+     (if keydefs (apply 'axltxl/define-key keydefs)))
+     #+END_SRC
+
+***** Label all subprefixes
+      All prefixed key combinations are relabeled on which-key via =general.el=
+
+      #+BEGIN_SRC emacs-lisp
+      (general-define-key
+        :prefix axltxl/leader-key
         :keymaps 'override
         :states '(normal visual motion emacs)
-        key ecmd)
-    (if keydefs (apply 'axltxl/define-key keydefs)))
-    #+END_SRC
+        "p"  '(nil :which-key "project")
+        "f"  '(nil :which-key "file")
+        "e"  '(nil :which-key "emacs")
+        "b"  '(nil :which-key "buffer")
+        "w"  '(nil :which-key "window")
+        "g"  '(nil :which-key "git")
+        "j"  '(nil :which-key "jump")
+        "t"  '(nil :which-key "toggle")
+        "o"  '(nil :which-key "org")
+        "oa" '(nil :which-key "org-agenda")
+        "oc" '(nil :which-key "org-capture"))
+      #+END_SRC
 
-**** Label all subprefixes
-     All prefixed key combinations are relabeled on which-key via =general.el=
+**** Major mode leader key
+    Major mode prefixed key bindings are meant to be bound only on buffers
+    where these major modes are applied. The bindings are usually by =general=
+    as soon as a package has been loaded by =use-package=.
 
     #+BEGIN_SRC emacs-lisp
-    (general-define-key
-    :prefix axltxl/leader-key
-    :keymaps 'override
-    :states '(normal visual motion emacs)
-    "p"  '(nil :which-key "project")
-    "f"  '(nil :which-key "file")
-    "e"  '(nil :which-key "emacs")
-    "b"  '(nil :which-key "buffer")
-    "w"  '(nil :which-key "window")
-    "g"  '(nil :which-key "git")
-    "j"  '(nil :which-key "jump")
-    "t"  '(nil :which-key "toggle")
-    "o"  '(nil :which-key "org")
-    "oa" '(nil :which-key "org-agenda")
-    "oc" '(nil :which-key "org-capture"))
+    (defconst axltxl/major-mode-leader-key ",")
     #+END_SRC
 
 ** Configuration Workflow
@@ -795,12 +808,28 @@ THE SOFTWARE.
 ** =org-mode=
    #+BEGIN_SRC emacs-lisp
    (use-package org
-   :demand t
-   :config
+    :after general
+    :demand t
 
-   ;; TODO lists keywords
-   (setq org-todo-keywords
-       '((sequence "TODO" "|" "DONE" "CANCELLED"))))
+    ;; org-mode prefixed key bindings
+    :general
+    (:states 'normal
+     :keymaps 'org-mode-map
+     :prefix axltxl/major-mode-leader-key
+     "t" 'org-todo)
+
+    ;; org-mode non-prefixed key bindings
+    (:states 'normal
+     :keymaps 'org-mode-map
+     "C->" 'org-metaright
+     "C-<" 'org-metaleft)
+
+    ;; Configuration
+    :config
+
+    ;; TODO lists keywords
+    (setq org-todo-keywords
+        '((sequence "TODO" "|" "DONE" "CANCELLED"))))
    #+END_SRC
 
 ** =org-bullets=
@@ -842,14 +871,18 @@ THE SOFTWARE.
 ** =org-agenda=
    #+BEGIN_SRC emacs-lisp
    (use-package org-agenda
-   :after org
+   :after (org general)
    :ensure nil ; This is vanilla org-mode
 
    ;; Prefixed Key Bindings
-   :bind (
-       :map org-agenda-mode-map
-       ("j" . org-agenda-next-line)
-       ("k" . org-agenda-previous-line))
+   :general (
+       :states '(normal motion emacs)
+       :keymaps 'org-agenda-mode-map
+       "j" 'org-agenda-next-line
+       "k" 'org-agenda-previous-line
+       "s" 'org-agenda-schedule
+       "c" 'org-agenda-capture
+       "t" 'org-agenda-todo)
 
    :config
    ;; Initial agenda files
