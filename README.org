@@ -853,6 +853,7 @@
      :keymaps 'org-mode-map
      :prefix axltxl/major-mode-leader-key
      "t" 'org-todo)
+     "SPC" 'org-toggle-checkbox
 
     ;; org-mode non-prefixed key bindings
     (:states 'normal
