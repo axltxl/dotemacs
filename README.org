@@ -856,7 +856,7 @@
      "SPC" 'org-toggle-checkbox
 
     ;; org-mode non-prefixed key bindings
-    (:states 'normal
+    (:states '(normal insert)
      :keymaps 'org-mode-map
      "C->" 'org-metaright
      "C-<" 'org-metaleft)
