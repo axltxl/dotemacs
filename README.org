@@ -219,7 +219,7 @@
     #+END_SRC
 
 *** =autopair=
-    This makes sure that brace structures (), [], {}, etc.
+    This makes sure that brace structures =()=, =[]=, ={}=, etc.
     are closed as soon as the opening character is typed.
 
 **** Package configuration
@@ -232,7 +232,7 @@
     (blink-cursor-mode 0)
     #+END_SRC
 
-*** No wordwrap,
+*** No wordwrap
     No nothing, me no likey
 
     #+BEGIN_SRC emacs-lisp
@@ -245,7 +245,7 @@
     #+END_SRC
 
 *** =evil-unimpaired=
-    unimpaired.vim in emacs! :)
+    =unimpaired.vim= in emacs! :)
 
 **** Package configuration
      #+BEGIN_SRC emacs-lisp
@@ -349,7 +349,6 @@
 
 *** NO MOUSE via =disable-mouse=
     Yep, that's right!. /No mouse/ means /no mouse/ at all ...
-    [[disable-mouse][https://github.com/purcell/disable-mouse]]
 
 **** Package configuration
     #+BEGIN_SRC emacs-lisp
@@ -707,9 +706,6 @@
     #+END_SRC
 
 **** Package configuration
-    The awesome emacs dashboard
-    [[[[https://github.com/emacs-dashboard/emacs-dashboard]]]]
-
     #+BEGIN_SRC emacs-lisp
     (use-package dashboard
     :after general ; this one has key bindings
@@ -816,9 +812,8 @@
     (axltxl/define-key "ft" 'neotree-toggle)
     #+END_SRC
 
-***** Open /neotree/ at project location set by /projectile/
-    Source: [[[[https://www.emacswiki.org/emacs/NeoTree]]]]
-    Similar to /find-file-in-project/, NeoTree can be opened (toggled) at /projectile/
+***** Open =neotree= at project location set by =projectile=
+    Similar to =find-file-in-project=, NeoTree can be opened (toggled) at =projectile=
     project root as follows:
 
     #+BEGIN_SRC emacs-lisp
