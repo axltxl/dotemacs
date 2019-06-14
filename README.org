@@ -938,62 +938,67 @@
     #+END_SRC
 
 ** =org-capture=
-   #+BEGIN_SRC emacs-lisp
-   (use-package org-capture
-   :after org
-   :ensure nil
-   :config
-       ;; Automatically align all tags before finalizing capture
-       ;; https://www.reddit.com/r/emacs/comments/93990v/automatically_add_tag_to_capture_in_org_mode/
-       (add-hook 'org-capture-before-finalize-hook #'org-align-all-tags)
+*** =org-capture= + =org-journal=
+    This function will allow =org-capture= to add a new journal entry
 
-       ;; org-capture templates
-       ;; https://orgmode.org/manual/Capture-templates.html#Capture-templates
-       (setq org-capture-templates
-       ;; Journal entries
-       `(
-       ("j" "journal/entry" entry
-           (function org-journal-find-location)
-           (file ,(concat org-tpl-journal-dir "generic.org")))
+    #+BEGIN_SRC emacs-lisp
+    (with-eval-after-load 'org-journal
+        (defun axltxl/org-journal-find-location ()
+            ;; Open today's journal, but specify a non-nil prefix argument in order to
+            ;; inhibit inserting the heading; org-capture will insert the heading.
+            (org-journal-new-entry t)
+            ;; Position point on the journal's top-level heading so that org-capture
+            ;; will add the new entry as a child entry.
+            (goto-char (point-min))))
+    #+END_SRC
 
-       ("a" "journal/action" entry
-           (function org-journal-find-location)
-           (file ,(concat org-tpl-journal-dir "actions/generic.org")))
+*** Package configuration
+    #+BEGIN_SRC emacs-lisp
+    (use-package org-capture
+    :after org-journal
+    :ensure nil
+    :config
 
-       ("e" "journal/event" entry
-           (function org-journal-find-location)
-           (file ,(concat org-tpl-journal-dir "events/generic.org")))
+        ;; Automatically align all tags before finalizing capture
+        ;; https://www.reddit.com/r/emacs/comments/93990v/automatically_add_tag_to_capture_in_org_mode/
+        (add-hook 'org-capture-before-finalize-hook #'org-align-all-tags)
 
-       ("t" "task" entry
-           (file ,(concat axltxl/org-home "tasks.org"))
-           (file ,(concat org-tpl-tasks-dir "generic.org")))
+        ;; org-capture templates
+        ;; https://orgmode.org/manual/Capture-templates.html#Capture-templates
+        (setq org-capture-templates
+        ;; Journal entries
+        `(
+        ("j" "journal/entry" entry
+            (function axltxl/org-journal-find-location)
+            (file ,(concat org-tpl-journal-dir "generic.org")))
 
-       ("G" "journal/entry/github" entry
-           (function org-journal-find-location)
-           (file ,(concat org-tpl-journal-private-dir "events/github.org")))
+        ("a" "journal/action" entry
+            (function axltxl/org-journal-find-location)
+            (file ,(concat org-tpl-journal-dir "actions/generic.org")))
 
-       ("A" "task/action" entry
-           (file ,(concat axltxl/org-home "tasks.org"))
-           (file ,(concat org-tpl-tasks-dir "actions/generic.org")))
+        ("e" "journal/event" entry
+            (function axltxl/org-journal-find-location)
+            (file ,(concat org-tpl-journal-dir "events/generic.org")))
 
-       ("g" "task/action/github" entry
-           (file ,(concat axltxl/org-home "tasks.org"))
-           (file ,(concat org-tpl-journal-private-dir "events/github.org"))))))
-   #+END_SRC
+        ("t" "task" entry
+            (file ,(concat axltxl/org-home "tasks.org"))
+            (file ,(concat org-tpl-tasks-dir "generic.org")))
+
+        ("G" "journal/entry/github" entry
+            (function axltxl/org-journal-find-location)
+            (file ,(concat org-tpl-journal-private-dir "events/github.org")))
+
+        ("A" "task/action" entry
+            (file ,(concat axltxl/org-home "tasks.org"))
+            (file ,(concat org-tpl-tasks-dir "actions/generic.org")))
+
+        ("g" "task/action/github" entry
+            (file ,(concat axltxl/org-home "tasks.org"))
+            (file ,(concat org-tpl-journal-private-dir "events/github.org"))))))
+    #+END_SRC
 
 *** Prefixed Key Bindings
    #+BEGIN_SRC emacs-lisp
-   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-   ;; org-capture + org-journal
-   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-   (defun org-journal-find-location ()
-   ;; Open today's journal, but specify a non-nil prefix argument in order to
-   ;; inhibit inserting the heading; org-capture will insert the heading.
-   (org-journal-new-entry t)
-   ;; Position point on the journal's top-level heading so that org-capture
-   ;; will add the new entry as a child entry.
-   (goto-char (point-min)))
-
    (axltxl/define-key "oc" 'org-capture)
    #+END_SRC
 
