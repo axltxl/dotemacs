@@ -59,6 +59,7 @@
 
 * The very basics
 ** =which-key=
+*** Package configuration
     #+BEGIN_SRC emacs-lisp
     (use-package which-key
     :demand t
@@ -188,14 +189,16 @@
 
 ** Text Editing
 *** =auto-complete=
-    #+BEGIN_SRC emacs-lisp
-    (use-package auto-complete :config (ac-config-default))
-    #+END_SRC
+**** Package configuration
+     #+BEGIN_SRC emacs-lisp
+     (use-package auto-complete :config (ac-config-default))
+     #+END_SRC
 
 *** =editorconfig=
-    #+BEGIN_SRC emacs-lisp
-    (use-package editorconfig :config (editorconfig-mode 1))
-    #+END_SRC
+**** Package configuration
+     #+BEGIN_SRC emacs-lisp
+     (use-package editorconfig :config (editorconfig-mode 1))
+     #+END_SRC
 
 *** Automatically revert buffers
     Automatically update a buffer if a file changes on disk
@@ -219,9 +222,10 @@
     This makes sure that brace structures (), [], {}, etc.
     are closed as soon as the opening character is typed.
 
-    #+BEGIN_SRC emacs-lisp
-    (use-package autopair :config (autopair-global-mode))
-    #+END_SRC
+**** Package configuration
+     #+BEGIN_SRC emacs-lisp
+     (use-package autopair :config (autopair-global-mode))
+     #+END_SRC
 
 *** No blinking cursor
     #+BEGIN_SRC emacs-lisp
@@ -243,31 +247,34 @@
 *** =evil-unimpaired=
     unimpaired.vim in emacs! :)
 
-    #+BEGIN_SRC emacs-lisp
-    (use-package evil-unimpaired
-    :after general
-    :load-path "local"
-    :config
-    (evil-unimpaired-mode))
-    #+END_SRC
+**** Package configuration
+     #+BEGIN_SRC emacs-lisp
+     (use-package evil-unimpaired
+     :after general
+     :load-path "local"
+     :config
+     (evil-unimpaired-mode))
+     #+END_SRC
 
 *** =evil-surround=
     =vim-surround= in emacs :)
 
-    #+BEGIN_SRC emacs-lisp
-    (use-package evil-surround
-    :after general
-    :config
-    (global-evil-surround-mode 1))
-    #+END_SRC
+**** Package configuration
+     #+BEGIN_SRC emacs-lisp
+     (use-package evil-surround
+     :after general
+     :config
+     (global-evil-surround-mode 1))
+     #+END_SRC
 
 *** =highlight-indent-guides=
-    #+BEGIN_SRC emacs-lisp
-    (use-package highlight-indent-guides
-    :config
-    (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
-    (setq highlight-indent-guides-method 'fill))
-    #+END_SRC
+**** Package configuration
+     #+BEGIN_SRC emacs-lisp
+     (use-package highlight-indent-guides
+     :config
+     (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+     (setq highlight-indent-guides-method 'fill))
+     #+END_SRC
 
 *** Backup files management
     All backups go to a single dedicated directory
@@ -278,33 +285,40 @@
     #+END_SRC
 
 *** =real-auto-save=
-    #+BEGIN_SRC emacs-lisp
-    (use-package real-auto-save
-    :config
-    (add-hook 'prog-mode-hook 'real-auto-save-mode)
-    (add-hook 'org-mode-hook 'real-auto-save-mode)
-    (setq real-auto-save-interval 10))
-    #+END_SRC
+**** Package configuration
+     #+BEGIN_SRC emacs-lisp
+     (use-package real-auto-save
+     :config
+     (add-hook 'prog-mode-hook 'real-auto-save-mode)
+     (add-hook 'org-mode-hook 'real-auto-save-mode)
+     (setq real-auto-save-interval 10))
+     #+END_SRC
 
 *** =evil-nerd-commenter=
-    [[[[https://github.com/redguardtoo/evil-nerd-commenter]]]]
     Comment all the things a la nerd commenter
 
-    #+BEGIN_SRC emacs-lisp
-    (use-package evil-nerd-commenter :after general)
-    #+END_SRC
+**** Package configuration
+     #+BEGIN_SRC emacs-lisp
+     (use-package evil-nerd-commenter :after general)
+     #+END_SRC
 
-    /<axltxl/leader-key> ;;/ does the magic
-    #+BEGIN_SRC emacs-lisp
-    (axltxl/define-key ";" 'evilnc-comment-operator)
-    #+END_SRC
+**** Prefixed key bindings
+     =<axltxl/leader-key> ;;= does the magic
+
+     #+BEGIN_SRC emacs-lisp
+     (axltxl/define-key ";" 'evilnc-comment-operator)
+     #+END_SRC
 
 *** =avy=
     emacs + =easymotion= = =avy=
 
-**** Prefixed Key Bindings
+**** Package configuration
     #+BEGIN_SRC emacs-lisp
     (use-package avy)
+    #+END_SRC
+
+**** Prefixed Key Bindings
+    #+BEGIN_SRC emacs-lisp
     (axltxl/define-key "jw" 'avy-goto-word-1)
     (axltxl/define-key "jl" 'avy-goto-line)
     #+END_SRC
@@ -337,6 +351,7 @@
     Yep, that's right!. /No mouse/ means /no mouse/ at all ...
     [[disable-mouse][https://github.com/purcell/disable-mouse]]
 
+**** Package configuration
     #+BEGIN_SRC emacs-lisp
     (use-package disable-mouse
     :after (evil general)
@@ -527,7 +542,7 @@
 
    #+BEGIN_SRC emacs-lisp
    (if (not (boundp 'axltxl/theme-current))
-   (setq axltxl/theme-current axltxl/theme-default))
+    (setq axltxl/theme-current axltxl/theme-default))
    #+END_SRC
 
 *** Toggle current theme
@@ -546,6 +561,7 @@
 *** =doom-themes=
    What can I say?. They look so nice! :).
 
+**** Package configuration
    #+BEGIN_SRC emacs-lisp
    (use-package doom-themes
     :demand t
@@ -555,8 +571,8 @@
 *** =doom-modeline=
    Set the real modeline now :)
 
+**** Package configuration
    #+BEGIN_SRC emacs-lisp
-   ;; doom-modeline specific config
    (use-package doom-modeline
    :demand t
    :after doom-themes
@@ -690,7 +706,7 @@
         "\"Only dead fish go with the flow\" - Andy Hunt. Pragmatic Thinking and Learning."])
     #+END_SRC
 
-**** =emacs-dashboard=
+**** Package configuration
     The awesome emacs dashboard
     [[[[https://github.com/emacs-dashboard/emacs-dashboard]]]]
 
@@ -731,6 +747,7 @@
     #+END_SRC
 
 ** =ivy=
+**** Package configuration
     #+BEGIN_SRC emacs-lisp
     (use-package counsel
     :demand t
@@ -765,6 +782,7 @@
     #+END_SRC
 
 ** =neotree=
+**** Package configuration
     #+BEGIN_SRC emacs-lisp
     (use-package neotree :after (general projectile)
 
@@ -842,6 +860,7 @@
    #+END_SRC
 
 ** =org-mode=
+*** Package configuration
    #+BEGIN_SRC emacs-lisp
    (use-package org
     :after general
@@ -852,8 +871,8 @@
     (:states 'normal
      :keymaps 'org-mode-map
      :prefix axltxl/major-mode-leader-key
-     "t" 'org-todo)
      "SPC" 'org-toggle-checkbox
+     "t"   'org-todo)
 
     ;; org-mode non-prefixed key bindings
     (:states '(normal insert)
@@ -872,6 +891,7 @@
 ** =org-bullets=
    UTF-8 fancy bullets for =org-mode=
 
+*** Package configuration
    #+BEGIN_SRC emacs-lisp
    (use-package org-bullets
    :after org
@@ -885,6 +905,7 @@
    #+END_SRC
 
 ** =org-journal=
+*** Package configuration
    #+BEGIN_SRC emacs-lisp
    (use-package org-journal
    :after org
@@ -906,6 +927,7 @@
     #+END_SRC
 
 ** =org-agenda=
+*** Package configuration
    #+BEGIN_SRC emacs-lisp
    (use-package org-agenda
    :after (org general)
@@ -1003,24 +1025,25 @@
    #+END_SRC
 
 ** =org-projectile=
-    #+BEGIN_SRC emacs-lisp
-    (use-package org-projectile
-        :after (org org-agenda projectile)
-        :config
-        ;; All project TODOs in one single file
-        (setq org-projectile-projects-file (concat axltxl/org-home "projects.org"))
+*** Package configuration
+   #+BEGIN_SRC emacs-lisp
+   (use-package org-projectile
+       :after (org org-agenda projectile)
+       :config
+       ;; All project TODOs in one single file
+       (setq org-projectile-projects-file (concat axltxl/org-home "projects.org"))
 
-        ;; org-projectile + org-agenda
-        (setq org-agenda-files (append org-agenda-files (org-projectile-todo-files)))
+       ;; org-projectile + org-agenda
+       (setq org-agenda-files (append org-agenda-files (org-projectile-todo-files)))
 
-        ;; org-projectile + org-capture
-        (push (org-projectile-project-todo-entry) org-capture-templates))
+       ;; org-projectile + org-capture
+       (push (org-projectile-project-todo-entry) org-capture-templates))
 
-        ;; go to TODOs file for project
-        (defun org-projectile/goto-todos ()
-        (interactive)
-        (org-projectile-goto-location-for-project (projectile-project-name)))
-    #+END_SRC
+       ;; go to TODOs file for project
+       (defun org-projectile/goto-todos ()
+       (interactive)
+       (org-projectile-goto-location-for-project (projectile-project-name)))
+   #+END_SRC
 
 *** Prefixed Key Bindings
 **** Open TODO list for a project
@@ -1030,6 +1053,7 @@
 
 * Project management
 ** =projectile=
+*** Package configuration
     #+BEGIN_SRC emacs-lisp
     (use-package projectile
     :demand t
@@ -1046,16 +1070,19 @@
     #+BEGIN_SRC emacs-lisp
     (axltxl/define-key "pf" 'projectile-find-file)
     #+END_SRC
+
 ** git
 *** =git-gutter=
-    #+BEGIN_SRC emacs-lisp
-    (use-package git-gutter :config (global-git-gutter-mode t))
-    #+END_SRC
+**** Package configuration
+     #+BEGIN_SRC emacs-lisp
+     (use-package git-gutter :config (global-git-gutter-mode t))
+     #+END_SRC
 
 *** =magit=
-    #+BEGIN_SRC emacs-lisp
-    (use-package magit :after general)
-    #+END_SRC
+**** Package configuration
+     #+BEGIN_SRC emacs-lisp
+     (use-package magit :after general)
+     #+END_SRC
 
 **** Key bindings
     Gotta be honest. =evil-magit= does a wonderful job for that
