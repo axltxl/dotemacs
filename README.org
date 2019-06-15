@@ -13,6 +13,8 @@
     - [[#edit-this-very-file][Edit this very file]]
 - [[#text-editing][Text Editing]]
   - [[#auto-complete][auto-complete]]
+  - [[#flyspell-mode][flyspell-mode]]
+  - [[#flycheck][flyspell]]
   - [[#editorconfig][editorconfig]]
   - [[#automatically-revert-buffers][Automatically revert buffers]]
   - [[#show-line-numbers][Show line numbers]]
@@ -194,26 +196,24 @@
     (use-package auto-complete :config (ac-config-default))
     #+END_SRC
 
-*** =autopair=
-    This makes sure that brace structures =()=, =[]=, ={}=, etc.
-    are closed as soon as the opening character is typed.
+** =flyspell-mode=
+   =flyspell-mode= is used for spell checking on the fly while typing
 
-**** Package configuration
-     #+BEGIN_SRC emacs-lisp
-     (use-package autopair :config (autopair-global-mode))
-     #+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (add-hook 'prog-mode-hook (lambda () (flyspell-prog-mode 1)))
+   (add-hook 'org-mode-hook (lambda () (flyspell-mode 1)))
+   (add-hook 'text-mode-hook (lambda () (flyspell-mode 1)))
+   #+END_SRC
 
-*** No blinking cursor
-    #+BEGIN_SRC emacs-lisp
-    (blink-cursor-mode 0)
-    #+END_SRC
+** =flycheck=
+  Flycheck is a modern on-the-fly syntax checking extension for GNU Emacs,
+  intended as replacement for the older Flymake extension which is part of GNU Emacs.
 
-*** No wordwrap
-    No nothing, me no likey
-
-    #+BEGIN_SRC emacs-lisp
-    (setq-default truncate-lines 1)
-    #+END_SRC
+*** Package configuration
+   #+BEGIN_SRC emacs-lisp
+   (use-package flycheck
+       :config (global-flycheck-mode))
+   #+END_SRC
 
 ** =editorconfig=
 *** Package configuration
