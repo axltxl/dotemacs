@@ -11,28 +11,28 @@
     - [[#reload-main-configuration][Reload main configuration]]
     - [[#edit-init-el][Edit init.el]]
     - [[#edit-this-very-file][Edit this very file]]
-  - [[#text-editing][Text Editing]]
-    - [[#auto-complete][auto-complete]]
-    - [[#editorconfig][editorconfig]]
-    - [[#automatically-revert-buffers][Automatically revert buffers]]
-    - [[#show-line-numbers][Show line numbers]]
-    - [[#no-tabs][No tabs]]
-    - [[#autopair][autopair]]
-    - [[#no-blinking-cursor][No blinking cursor]]
-    - [[#no-wordwrap][No wordwrap]]
-    - [[#turn-on-highlight-matching-brackets-when-cursor-is-on-one][Turn on highlight matching brackets when cursor is on one]]
-    - [[#evil-unimpaired][evil-unimpaired]]
-    - [[#evil-surround][evil-surround]]
-    - [[#highlight-indent-guides][highlight-indent-guides]]
-    - [[#backup-files-management][Backup files management]]
-    - [[#real-auto-save][real-auto-save]]
-    - [[#evil-nerd-commenter][evil-nerd-commenter]]
-    - [[#avy][avy]]
-    - [[#text-scaling][Text scaling]]
-    - [[#quite-useful-to-know-where-a-buffer-ends][Quite useful to know where a buffer ends]]
-    - [[#remove-trailing-whitespace-upon-saving-a-buffer][Remove trailing whitespace upon saving a buffer]]
-    - [[#always-write-a-newline-at-the-end-of-a-file][Always write a newline at the end of a file]]
-    - [[#no-mouse-via-disable-mouse][NO MOUSE via disable-mouse]]
+- [[#text-editing][Text Editing]]
+  - [[#auto-complete][auto-complete]]
+  - [[#editorconfig][editorconfig]]
+  - [[#automatically-revert-buffers][Automatically revert buffers]]
+  - [[#show-line-numbers][Show line numbers]]
+  - [[#no-tabs][No tabs]]
+  - [[#autopair][autopair]]
+  - [[#no-blinking-cursor][No blinking cursor]]
+  - [[#no-wordwrap][No wordwrap]]
+  - [[#turn-on-highlight-matching-brackets-when-cursor-is-on-one][Turn on highlight matching brackets when cursor is on one]]
+  - [[#evil-unimpaired][evil-unimpaired]]
+  - [[#evil-surround][evil-surround]]
+  - [[#highlight-indent-guides][highlight-indent-guides]]
+  - [[#backup-files-management][Backup files management]]
+  - [[#real-auto-save][real-auto-save]]
+  - [[#evil-nerd-commenter][evil-nerd-commenter]]
+  - [[#avy][avy]]
+  - [[#text-scaling][Text scaling]]
+  - [[#quite-useful-to-know-where-a-buffer-ends][Quite useful to know where a buffer ends]]
+  - [[#remove-trailing-whitespace-upon-saving-a-buffer][Remove trailing whitespace upon saving a buffer]]
+  - [[#always-write-a-newline-at-the-end-of-a-file][Always write a newline at the end of a file]]
+  - [[#no-mouse-via-disable-mouse][NO MOUSE via disable-mouse]]
   - [[#custom-set-variables][custom-set-variables]]
 - [[#user-interface][User Interface]]
   - [[#window-management][Window Management]]
@@ -187,35 +187,11 @@
     (axltxl/define-key "eo" 'axltxl/org-edit)
     #+END_SRC
 
-** Text Editing
-*** =auto-complete=
-**** Package configuration
-     #+BEGIN_SRC emacs-lisp
-     (use-package auto-complete :config (ac-config-default))
-     #+END_SRC
-
-*** =editorconfig=
-**** Package configuration
-     #+BEGIN_SRC emacs-lisp
-     (use-package editorconfig :config (editorconfig-mode 1))
-     #+END_SRC
-
-*** Automatically revert buffers
-    Automatically update a buffer if a file changes on disk
-
+* Text Editing
+** =auto-complete=
+*** Package configuration
     #+BEGIN_SRC emacs-lisp
-    (global-auto-revert-mode 1)
-    #+END_SRC
-
-*** Show line numbers
-    #+BEGIN_SRC emacs-lisp
-    (add-hook 'prog-mode-hook 'display-line-numbers-mode)
-    #+END_SRC
-
-*** No tabs
-    #+BEGIN_SRC emacs-lisp
-    (setq-default tab-width 2)
-    (setq-default indent-tabs-mode nil)
+    (use-package auto-complete :config (ac-config-default))
     #+END_SRC
 
 *** =autopair=
@@ -239,129 +215,176 @@
     (setq-default truncate-lines 1)
     #+END_SRC
 
-*** Turn on highlight matching brackets when cursor is on one
+** =editorconfig=
+*** Package configuration
     #+BEGIN_SRC emacs-lisp
-    (show-paren-mode 1)
+    (use-package editorconfig :config (editorconfig-mode 1))
     #+END_SRC
 
-*** =evil-unimpaired=
-    =unimpaired.vim= in emacs! :)
 
-**** Package configuration
-     #+BEGIN_SRC emacs-lisp
-     (use-package evil-unimpaired
-     :after general
-     :load-path "local"
-     :config
-     (evil-unimpaired-mode))
-     #+END_SRC
+   #+BEGIN_SRC emacs-lisp
+** Automatically revert buffers
+   Automatically update a buffer if a file changes on disk
 
-*** =evil-surround=
-    =vim-surround= in emacs :)
+   #+BEGIN_SRC emacs-lisp
+   (global-auto-revert-mode 1)
+   #+END_SRC
 
-**** Package configuration
-     #+BEGIN_SRC emacs-lisp
-     (use-package evil-surround
-     :after general
-     :config
-     (global-evil-surround-mode 1))
-     #+END_SRC
+** Show line numbers
+   #+BEGIN_SRC emacs-lisp
+   (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+   #+END_SRC
 
-*** =highlight-indent-guides=
-**** Package configuration
-     #+BEGIN_SRC emacs-lisp
-     (use-package highlight-indent-guides
-     :config
-     (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
-     (setq highlight-indent-guides-method 'fill))
-     #+END_SRC
+** No tabs
+   #+BEGIN_SRC emacs-lisp
+   (setq-default tab-width 2)
+   (setq-default indent-tabs-mode nil)
+   #+END_SRC
 
-*** Backup files management
-    All backups go to a single dedicated directory
+** =autopair=
+   This makes sure that brace structures =()=, =[]=, ={}=, etc.
+   are closed as soon as the opening character is typed.
 
+*** Package configuration
     #+BEGIN_SRC emacs-lisp
-    (setq backup-directory-alist
-    `(("." . ,(concat user-emacs-directory "backups"))))
+    (use-package autopair :config (autopair-global-mode))
     #+END_SRC
 
-*** =real-auto-save=
-**** Package configuration
-     #+BEGIN_SRC emacs-lisp
-     (use-package real-auto-save
-     :config
-     (add-hook 'prog-mode-hook 'real-auto-save-mode)
-     (add-hook 'org-mode-hook 'real-auto-save-mode)
-     (setq real-auto-save-interval 10))
-     #+END_SRC
+** No blinking cursor
+   #+BEGIN_SRC emacs-lisp
+   (blink-cursor-mode 0)
+   #+END_SRC
 
-*** =evil-nerd-commenter=
-    Comment all the things a la nerd commenter
+** No wordwrap
+   No nothing, me no likey
 
-**** Package configuration
-     #+BEGIN_SRC emacs-lisp
-     (use-package evil-nerd-commenter :after general)
-     #+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (setq-default truncate-lines 1)
+   #+END_SRC
 
-**** Prefixed key bindings
-     =<axltxl/leader-key> ;;= does the magic
+** Turn on highlight matching brackets when cursor is on one
+   #+BEGIN_SRC emacs-lisp
+   (show-paren-mode 1)
+   #+END_SRC
 
-     #+BEGIN_SRC emacs-lisp
-     (axltxl/define-key ";" 'evilnc-comment-operator)
-     #+END_SRC
+** =evil-unimpaired=
+   =unimpaired.vim= in emacs! :)
 
-*** =avy=
-    emacs + =easymotion= = =avy=
-
-**** Package configuration
+*** Package configuration
     #+BEGIN_SRC emacs-lisp
-    (use-package avy)
-    #+END_SRC
-
-**** Prefixed Key Bindings
-    #+BEGIN_SRC emacs-lisp
-    (axltxl/define-key "jw" 'avy-goto-word-1)
-    (axltxl/define-key "jl" 'avy-goto-line)
-    #+END_SRC
-
-*** Text scaling
-    Increase/decrease font size
-
-**** Prefixed Key Bindings
-    #+BEGIN_SRC emacs-lisp
-    (axltxl/define-key "/" 'text-scale-increase)
-    (axltxl/define-key "." 'text-scale-decrease)
-    #+END_SRC
-
-*** Quite useful to know where a buffer ends
-    #+BEGIN_SRC emacs-lisp
-    (setq-default indicate-empty-lines t)
-    #+END_SRC
-
-*** Remove trailing whitespace upon saving a buffer
-    #+BEGIN_SRC emacs-lisp
-    (add-hook 'before-save-hook 'delete-trailing-whitespace)
-    #+END_SRC
-
-*** Always write a newline at the end of a file
-    #+BEGIN_SRC emacs-lisp
-    (setq-default require-final-newline t)
-    #+END_SRC
-
-*** NO MOUSE via =disable-mouse=
-    Yep, that's right!. /No mouse/ means /no mouse/ at all ...
-
-**** Package configuration
-    #+BEGIN_SRC emacs-lisp
-    (use-package disable-mouse
-    :after (evil general)
+    (use-package evil-unimpaired
+    :after general
+    :load-path "local"
     :config
-    (global-disable-mouse-mode)
-    (mapc #'disable-mouse-in-keymap
-    (list evil-motion-state-map
-            evil-normal-state-map
-            evil-visual-state-map
-            evil-insert-state-map)))
+    (evil-unimpaired-mode))
     #+END_SRC
+
+** =evil-surround=
+   =vim-surround= in emacs :)
+
+*** Package configuration
+    #+BEGIN_SRC emacs-lisp
+    (use-package evil-surround
+    :after general
+    :config
+    (global-evil-surround-mode 1))
+    #+END_SRC
+
+** =highlight-indent-guides=
+*** Package configuration
+    #+BEGIN_SRC emacs-lisp
+    (use-package highlight-indent-guides
+    :config
+    (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+    (setq highlight-indent-guides-method 'fill))
+    #+END_SRC
+
+** Backup files management
+   All backups go to a single dedicated directory
+
+   #+BEGIN_SRC emacs-lisp
+   (setq backup-directory-alist
+   `(("." . ,(concat user-emacs-directory "backups"))))
+   #+END_SRC
+
+** =real-auto-save=
+*** Package configuration
+    #+BEGIN_SRC emacs-lisp
+    (use-package real-auto-save
+    :config
+    (add-hook 'prog-mode-hook 'real-auto-save-mode)
+    (add-hook 'org-mode-hook 'real-auto-save-mode)
+    (setq real-auto-save-interval 10))
+    #+END_SRC
+
+** =evil-nerd-commenter=
+   Comment all the things a la nerd commenter
+
+*** Package configuration
+    #+BEGIN_SRC emacs-lisp
+    (use-package evil-nerd-commenter :after general)
+    #+END_SRC
+
+*** Prefixed key bindings
+    =<axltxl/leader-key> ;;= does the magic
+
+    #+BEGIN_SRC emacs-lisp
+    (axltxl/define-key ";" 'evilnc-comment-operator)
+    #+END_SRC
+
+** =avy=
+   emacs + =easymotion= = =avy=
+
+*** Package configuration
+   #+BEGIN_SRC emacs-lisp
+   (use-package avy)
+   #+END_SRC
+
+*** Prefixed Key Bindings
+   #+BEGIN_SRC emacs-lisp
+   (axltxl/define-key "jw" 'avy-goto-word-1)
+   (axltxl/define-key "jl" 'avy-goto-line)
+   #+END_SRC
+
+** Text scaling
+   Increase/decrease font size
+
+*** Prefixed Key Bindings
+   #+BEGIN_SRC emacs-lisp
+   (axltxl/define-key "/" 'text-scale-increase)
+   (axltxl/define-key "." 'text-scale-decrease)
+   #+END_SRC
+
+** Quite useful to know where a buffer ends
+   #+BEGIN_SRC emacs-lisp
+   (setq-default indicate-empty-lines t)
+   #+END_SRC
+
+** Remove trailing whitespace upon saving a buffer
+   #+BEGIN_SRC emacs-lisp
+   (add-hook 'before-save-hook 'delete-trailing-whitespace)
+   #+END_SRC
+
+** Always write a newline at the end of a file
+   #+BEGIN_SRC emacs-lisp
+   (setq-default require-final-newline t)
+   #+END_SRC
+
+** NO MOUSE via =disable-mouse=
+   Yep, that's right!. /No mouse/ means /no mouse/ at all ...
+
+*** Package configuration
+   #+BEGIN_SRC emacs-lisp
+   (use-package disable-mouse
+   :after (evil general)
+   :config
+   (global-disable-mouse-mode)
+   (mapc #'disable-mouse-in-keymap
+   (list evil-motion-state-map
+           evil-normal-state-map
+           evil-visual-state-map
+           evil-insert-state-map)))
+   #+END_SRC
 
 ** =custom-set-variables=
 *** =custom-set-variables= is set on another file
