@@ -890,6 +890,7 @@
      :keymaps 'org-mode-map
      :prefix axltxl/major-mode-leader-key
      "SPC" 'org-toggle-checkbox
+     "il"  'org-insert-link
      "t"   'org-todo)
 
     ;; org-mode non-prefixed key bindings
