@@ -394,8 +394,13 @@
 
 *** Prefixed Key Bindings
    #+BEGIN_SRC emacs-lisp
-   (axltxl/define-key "/" 'text-scale-increase)
-   (axltxl/define-key "." 'text-scale-decrease)
+    (use-package general
+      :config
+      (general-define-key
+          :maps 'override
+          :states '(normal visual insert motion)
+          "C-}" 'text-scale-increase
+          "C-{" 'text-scale-decrease))
    #+END_SRC
 
 ** Quite useful to know where a buffer ends
@@ -624,7 +629,7 @@
 
 *** Persistent theme through configuration reload
    This will keep the current set theme from changing
-   across configuration reloads via /axltxl/config-restart/
+   across configuration reloads via =axltxl/config-restart=
    command
 
    #+BEGIN_SRC emacs-lisp
