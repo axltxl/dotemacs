@@ -11,6 +11,8 @@
     - [[#reload-main-configuration][Reload main configuration]]
     - [[#edit-init-el][Edit init.el]]
     - [[#edit-this-very-file][Edit this very file]]
+  - [[#packages][Packages]]
+    - [[#auto-package-update][auto-package-update]]
 - [[#text-editing][Text Editing]]
   - [[#auto-complete][auto-complete]]
   - [[#flyspell-mode][flyspell-mode]]
@@ -127,6 +129,7 @@
         "p"  '(nil :which-key "project")
         "f"  '(nil :which-key "file")
         "e"  '(nil :which-key "emacs")
+        "ep" '(nil :which-key "packages")
         "b"  '(nil :which-key "buffer")
         "w"  '(nil :which-key "window")
         "g"  '(nil :which-key "git")
@@ -188,6 +191,27 @@
     #+BEGIN_SRC emacs-lisp
     (axltxl/define-key "eo" 'axltxl/org-edit)
     #+END_SRC
+
+** Packages
+*** =auto-package-update=
+    =auto-package-udpate= makes sure packages are updated as soon as there are new
+    versions of them.
+
+**** Package configuration
+     #+BEGIN_SRC emacs-lisp
+     (use-package auto-package-update
+        :config
+        (setq auto-package-update-interval 7)
+        (setq auto-package-update-prompt-before-update t)
+        (setq auto-package-update-delete-old-versions t)
+        (auto-package-update-maybe))
+     #+END_SRC
+
+**** Prefixed key bindings
+***** Update packages at will
+     #+BEGIN_SRC emacs-lisp
+     (axltxl/define-key "epu" 'auto-package-update-now)
+     #+END_SRC
 
 * Text Editing
 ** =auto-complete=
