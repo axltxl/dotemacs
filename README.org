@@ -11,6 +11,7 @@
     - [[#reload-main-configuration][Reload main configuration]]
     - [[#edit-init-el][Edit init.el]]
     - [[#edit-this-very-file][Edit this very file]]
+    - [[#private-configuration][Private configuration]]
   - [[#packages][Packages]]
     - [[#auto-package-update][auto-package-update]]
 - [[#text-editing][Text Editing]]
@@ -191,7 +192,6 @@
     #+BEGIN_SRC emacs-lisp
     (axltxl/define-key "eo" 'axltxl/org-edit)
     #+END_SRC
-
 
 *** Private configuration
     Private configuration snippets can be loaded from a directory specified
