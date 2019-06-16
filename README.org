@@ -221,8 +221,10 @@
     (use-package editorconfig :config (editorconfig-mode 1))
     #+END_SRC
 
-
-   #+BEGIN_SRC emacs-lisp
+** Replace yes/no prompts with y/n
+    #+BEGIN_SRC emacs-lisp
+    (fset 'yes-or-no-p 'y-or-n-p)
+    #+END_SRC
 ** Automatically revert buffers
    Automatically update a buffer if a file changes on disk
 
