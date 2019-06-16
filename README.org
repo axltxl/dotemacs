@@ -192,6 +192,23 @@
     (axltxl/define-key "eo" 'axltxl/org-edit)
     #+END_SRC
 
+
+*** Private configuration
+    Private configuration snippets can be loaded from a directory specified
+    at =axltxl/emacs-private-dir= There, things like trying new packages or
+    secrets and/or sensitive information can be thrown without risk of
+    any "undesired disclosure".
+
+***** Private configuration directory
+    #+BEGIN_SRC emacs-lisp
+    (defconst axltxl/emacs-private-dir (concat user-emacs-directory "private.d"))
+    #+END_SRC
+
+***** Load all files in private configuration directory
+    #+BEGIN_SRC emacs-lisp
+    (apply 'load-file (directory-files axltxl/emacs-private-dir t "\.el$"))
+    #+END_SRC
+
 ** Packages
 *** =auto-package-update=
     =auto-package-udpate= makes sure packages are updated as soon as there are new

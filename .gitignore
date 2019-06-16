@@ -2,6 +2,7 @@
 *.eld
 *~
 custom.el
+private.d
 README.el
 autosave-list
 elpa
