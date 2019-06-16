@@ -443,6 +443,28 @@
     (axltxl/define-key "wl" 'windmove-right)
     #+END_SRC
 
+***** =ace-window=
+      =ace-window= is pretty useful for quickly switching windows,
+      even across frames!, among other cool things.
+
+      #+BEGIN_SRC emacs-lisp
+      (use-package ace-window
+        :init
+
+        ;; trigger ace-window always
+        (setq aw-dispatch-always t)
+
+        ;; aw-keys are 0-9 by default, which is reasonable,
+        ;; but in the setup above, the keys are on the home row.
+        (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
+      #+END_SRC
+
+****** Prefixed Key bindings
+******* Turn on =ace-window= mode
+      #+BEGIN_SRC emacs-lisp
+      (axltxl/define-key "ww" 'ace-window)
+      #+END_SRC
+
 *** Frames
 **** Create new frame
     #+BEGIN_SRC emacs-lisp
