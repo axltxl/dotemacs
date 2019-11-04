@@ -631,12 +631,14 @@
 ** Theme settings
 *** Light theme
    #+BEGIN_SRC emacs-lisp
-   (defconst axltxl/theme-light 'doom-solarized-light)
+   (if (not (boundp 'axltxl/theme-light))
+    (defconst axltxl/theme-light 'doom-solarized-light))
    #+END_SRC
 
 *** Dark theme (default)
    #+BEGIN_SRC emacs-lisp
-   (defconst axltxl/theme-dark  'doom-dracula)
+   (if (not (boundp 'axltxl/theme-dark))
+    (defconst axltxl/theme-dark  'doom-dracula))
    (defconst axltxl/theme-default axltxl/theme-dark)
    #+END_SRC
 
