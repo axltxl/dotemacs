@@ -900,6 +900,7 @@
         "c"   'neotree-create-node
         "r"   'neotree-rename-node
         "d"   'neotree-delete-node
+        "y"   'neotree-copy-node
         "h"   'neotree-select-up-node
         "gr"  'neotree-refresh
         "C"   'neotree-change-root
