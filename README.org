@@ -1222,3 +1222,21 @@
     #+BEGIN_SRC emacs-lisp
     (use-package json-mode)
     #+END_SRC
+*** Terraform
+**** =terraform-mode=
+    #+BEGIN_SRC emacs-lisp
+    (use-package terraform-mode
+    :config
+    ; Format the current buffer with terraform-format-buffer. To always
+    ; format terraform buffers when saving, use:
+    (add-hook 'terraform-mode-hook #'terraform-format-on-save-mode))
+    #+END_SRC
+
+**** =company-terraform= for autocompletion
+    ... and we add =company= autocompletion into the mix
+    #+BEGIN_SRC emacs-lisp
+    (use-package company-terraform
+    :after (company terraform-mode)
+    :config
+    (company-terraform-init))
+    #+END_SRC
