@@ -527,7 +527,7 @@
 *** Frames
 **** Create new frame
     #+BEGIN_SRC emacs-lisp
-    (axltxl/define-key "wf" 'new-frame)
+    (axltxl/define-key "wf" 'make-frame)
     #+END_SRC
 
 **** Jump to frame
