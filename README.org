@@ -625,7 +625,7 @@
 
    #+BEGIN_SRC emacs-lisp
    (add-to-list 'default-frame-alist
-   '(font . "Inconsolata LGC-11:width=normal:weight=demibold"))
+   '(font . "Terminus-11"))
    #+END_SRC
 
 ** Theme settings
