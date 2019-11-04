@@ -231,10 +231,23 @@
      #+END_SRC
 
 * Text Editing
-** =auto-complete=
+** Auto completion (=company-mode=)
 *** Package configuration
     #+BEGIN_SRC emacs-lisp
-    (use-package auto-complete :config (ac-config-default))
+    (use-package company
+    :config
+    ;; Let company act immediately
+    (setq company-idle-delay 0)
+
+    ;; company-mode should be ready at all times
+    (add-hook 'after-init-hook 'global-company-mode)
+
+    ;; Key bindings for this one
+    :general
+    ( :states '(insert)
+        "TAB"   'company-complete
+        "M-k"   'company-select-previous
+        "M-j"   'company-select-next))
     #+END_SRC
 
 ** =flyspell-mode=
