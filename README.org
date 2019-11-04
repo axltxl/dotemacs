@@ -1203,7 +1203,7 @@
     (axltxl/define-key "gs" 'magit-status)
     #+END_SRC
 
-** File types Support
+** File types support
 *** YAML (=yaml-mode=)
     #+BEGIN_SRC emacs-lisp
     (use-package yaml-mode
@@ -1217,4 +1217,8 @@
     (add-hook 'yaml-mode-hook
         '(lambda ()
         (define-key yaml-mode-map "\C-m" 'newline-and-indent))))
+    #+END_SRC
+*** JSON
+    #+BEGIN_SRC emacs-lisp
+    (use-package json-mode)
     #+END_SRC
