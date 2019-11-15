@@ -1,3 +1,4 @@
+TAGS
 *.dat
 *.eld
 *~
@@ -12,5 +13,5 @@ recentf
 transient
 bookmarks
 .last-package-update-day
-\#*
+*#*
 session*

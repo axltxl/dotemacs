@@ -154,6 +154,7 @@
         :keymaps 'override
         :states '(normal visual motion emacs)
         "p"  '(nil :which-key "project")
+        "pc" '(nil :which-key "ctags")
         "f"  '(nil :which-key "file")
         "e"  '(nil :which-key "emacs")
         "ep" '(nil :which-key "packages")
@@ -500,6 +501,36 @@
     (load custom-file 'noerror)
     #+END_SRC
 
+** ctags
+*** =counsel-etags=
+    #+BEGIN_SRC emacs-lisp
+    (use-package counsel-etags :after counsel
+    :ensure t
+    :bind (("C-]" . counsel-etags-find-tag-at-point))
+    :init
+    ;; Don't ask before rereading the TAGS files if they have changed
+    (setq tags-revert-without-query t)
+
+    ;; Don't warn when TAGS files are large
+    (setq large-file-warning-threshold nil)
+
+    ;; Autoupdate tags file
+    (add-hook 'prog-mode-hook
+        (lambda ()
+        (add-hook 'after-save-hook
+            'counsel-etags-virtual-update-tags 'append 'local)))
+    :config
+    (setq counsel-etags-update-interval 60)
+    (push "build" counsel-etags-ignore-directories))
+    #+END_SRC
+
+    #+BEGIN_SRC emacs-lisp
+    (axltxl/define-key "pcf" 'counsel-etags-find-tag)
+    (axltxl/define-key "pcl" 'counsel-etags-list-tag)
+    (axltxl/define-key "pcu" 'counsel-etags-update-tags-force)
+    (axltxl/define-key "pcs" 'counsel-etags-scan-code)
+    #+END_SRC
+
 * User Interface
 ** Window Management
 *** Windows
@@ -599,7 +630,7 @@
 **** Switching
 ***** Switch to buffer
     #+BEGIN_SRC emacs-lisp
-    (axltxl/define-key "bb" 'switch-to-buffer)
+    (axltxl/define-key "bb" 'counsel-switch-buffer)
     #+END_SRC
 
 ***** Switch to messages
@@ -701,7 +732,7 @@
        (if (eq axltxl/theme-current axltxl/theme-dark)
            (setq axltxl/theme-current axltxl/theme-light)
            (setq axltxl/theme-current axltxl/theme-dark))
-           (counsel-load-theme axltxl/theme-current t))
+           (load-theme axltxl/theme-current t))
 
    ;; Key binding for axltxl/toggle-theme
    (axltxl/define-key "tt" 'axltxl/toggle-theme)
@@ -1277,10 +1308,12 @@
         '(lambda ()
         (define-key yaml-mode-map "\C-m" 'newline-and-indent))))
     #+END_SRC
+
 *** JSON
     #+BEGIN_SRC emacs-lisp
     (use-package json-mode)
     #+END_SRC
+
 *** Terraform
 **** =terraform-mode=
     #+BEGIN_SRC emacs-lisp
@@ -1299,6 +1332,7 @@
     :config
     (company-terraform-init))
     #+END_SRC
+
 *** Haxe (haxe.org)
 **** =battle-haxe=
     #+BEGIN_SRC emacs-lisp
