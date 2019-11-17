@@ -206,7 +206,8 @@
 
 ***** Load all files in private configuration directory
     #+BEGIN_SRC emacs-lisp
-    (apply 'load-file (directory-files axltxl/emacs-private-dir t "\.el$"))
+    (if (file-directory-p axltxl/emacs-private-dir) 
+        (apply 'load-file (directory-files axltxl/emacs-private-dir t "\.el$")))
     #+END_SRC
 
 ** Packages
