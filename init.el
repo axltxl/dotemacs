@@ -23,6 +23,7 @@
 (package-initialize)
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
 
 ;; use-package is the only package that is needed at init time.
 ;; It's awesome and it will take care of everything from this point onwards.
