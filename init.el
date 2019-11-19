@@ -18,29 +18,7 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 ;; THE SOFTWARE.
 
-;; Setup MELPA as the package repo
-(require 'package)
-(package-initialize)
-(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
-
-;; Initialize package index
-(package-refresh-contents)
-
-;; use-package is the only package that is needed at init time.
-;; It's awesome and it will take care of everything from this point onwards.
-(when (not (package-installed-p 'use-package))
-    (package-install 'use-package))
-
-;; use-package: the only thing that is really needed
-(eval-when-compile
-  (require 'use-package)
-  (setq use-package-always-ensure t)
-  (setq use-package-verbose t))
 
 ;; Use org-babel to render and run the config
-(use-package org
-  :pin org
-  :config
-  (org-babel-load-file (concat user-emacs-directory "README.org")))
+(require 'org)
+(org-babel-load-file (concat user-emacs-directory "README.org"))

@@ -3,6 +3,7 @@
 
 * Table of contents
 - [[#the-very-basics][The very basics]]
+  - [[#packages-bootstrap][Packages bootstrap]]
   - [[#which-key][which-key]]
   - [[#the-evil-section][The evil Section]]
   - [[#leader-key-setup-via-general-el][Leader key setup via general.el]]
@@ -63,6 +64,31 @@
   - [[#file-types-support][File types Support]]
 
 * The very basics
+** Packages bootstrap
+*** Set up package repositories
+    #+BEGIN_SRC emacs-lisp
+    (require 'package)
+    (package-initialize)
+    (add-to-list 'package-archives '("org"   . "https://orgmode.org/elpa/") t)    ;; Org-mode repo
+    (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)  ;; MELPA
+    (add-to-list 'package-archives '("gnu"   . "https://elpa.gnu.org/packages/")) ;; GNU ELPA
+    #+END_SRC
+
+*** =use-package=
+    The one package loader: it's awesome and it will take care of everything from this point onwards.
+
+    #+BEGIN_SRC emacs-lisp
+    (when (not (package-installed-p 'use-package))
+        (package-refresh-contents)      ;; Initialize package index
+        (package-install 'use-package)) ;; Install use-package
+
+    ;; use-package: the only thing that is really needed
+    (eval-when-compile
+        (require 'use-package)
+        (setq use-package-always-ensure t)
+        (setq use-package-verbose t))
+    #+END_SRC
+
 ** =which-key=
 *** Package configuration
     #+BEGIN_SRC emacs-lisp
@@ -206,7 +232,7 @@
 
 ***** Load all files in private configuration directory
     #+BEGIN_SRC emacs-lisp
-    (if (file-directory-p axltxl/emacs-private-dir) 
+    (if (file-directory-p axltxl/emacs-private-dir)
         (apply 'load-file (directory-files axltxl/emacs-private-dir t "\.el$")))
     #+END_SRC
 
