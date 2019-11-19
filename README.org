@@ -179,8 +179,9 @@
 ** Configuration Workflow
 *** Main constants
     #+BEGIN_SRC emacs-lisp
-    (defconst axltxl/emacs-init-file (concat user-emacs-directory "init.el"))
-    (defconst axltxl/emacs-org-file  (concat user-emacs-directory "README.org"))
+    (defconst axltxl/emacs-init-file          (concat user-emacs-directory "init.el"))
+    (defconst axltxl/emacs-org-file           (concat user-emacs-directory "README.org"))
+    (defconst axltxl/emacs-org-rendered-file  (concat user-emacs-directory "README.el"))
     #+END_SRC
 
 *** Reload main configuration
@@ -205,6 +206,20 @@
 **** Prefixed Key Bindings
     #+BEGIN_SRC emacs-lisp
     (axltxl/define-key "ed" 'axltxl/init-edit)
+    #+END_SRC
+
+*** Debug this very file (or the one rendered by =org-babel=)
+    #+BEGIN_SRC emacs-lisp
+    (use-package bug-hunter :demand t)
+    (defun axltxl/init-debug ()
+        (interactive)
+        (bug-hunter-file axltxl/emacs-init-file)
+        (bug-hunter-file axltxl/emacs-org-rendered-file))
+    #+END_SRC
+
+**** Prefixed Key Bindings
+    #+BEGIN_SRC emacs-lisp
+    (axltxl/define-key "ex" 'axltxl/init-debug)
     #+END_SRC
 
 *** Edit this very file
@@ -697,9 +712,25 @@
 
 **** Package configuration
    #+BEGIN_SRC emacs-lisp
-   (use-package doom-themes
+   (use-package doom-themes :after (org neotree)
     :demand t
-    :config (load-theme axltxl/theme-current t))
+    :config
+
+    ;; Global settings (defaults)
+    (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+
+    ;; Load current theme
+    (load-theme axltxl/theme-current t)
+
+    ;; Enable flashing mode-line on errors
+    (doom-themes-visual-bell-config)
+
+    ;; Enable custom neotree theme (all-the-icons must be installed!)
+    (doom-themes-neotree-config)
+
+    ;; Corrects (and improves) org-mode's native fontification.
+    (doom-themes-org-config))
    #+END_SRC
 
 *** =doom-modeline=
@@ -916,31 +947,32 @@
 **** Package configuration
     #+BEGIN_SRC emacs-lisp
     (use-package neotree :after (general projectile)
+     :demand t
 
-    ;; Key bindings for this one
-    :general
-    ( :states '(motion normal)
-        :keymaps 'neotree-mode-map
-        "ov"  'neotree-enter-vertical-split
-        "os"  'neotree-enter-horizontal-split
-        "RET" 'neotree-enter
-        "c"   'neotree-create-node
-        "r"   'neotree-rename-node
-        "d"   'neotree-delete-node
-        "y"   'neotree-copy-node
-        "h"   'neotree-select-up-node
-        "gr"  'neotree-refresh
-        "C"   'neotree-change-root
-        "H"   'neotree-hidden-file-toggle
-        "q"   'neotree-hide
-        "l"   'neotree-enter)
+     ;; Key bindings for this one
+     :general
+     ( :states '(motion normal)
+         :keymaps 'neotree-mode-map
+         "ov"  'neotree-enter-vertical-split
+         "os"  'neotree-enter-horizontal-split
+         "RET" 'neotree-enter
+         "c"   'neotree-create-node
+         "r"   'neotree-rename-node
+         "d"   'neotree-delete-node
+         "y"   'neotree-copy-node
+         "h"   'neotree-select-up-node
+         "gr"  'neotree-refresh
+         "C"   'neotree-change-root
+         "H"   'neotree-hidden-file-toggle
+         "q"   'neotree-hide
+         "l"   'neotree-enter)
 
-    ;; Configuration
-    :config
+     ;; Configuration
+     :config
 
-    ;; all-the-icons support
-    (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
-    #+END_SRC
+     ;; all-the-icons support
+     (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
+     #+END_SRC
 
 **** Prefix Key Bindings
 ***** Toggle =neotree=

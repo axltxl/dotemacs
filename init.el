@@ -18,7 +18,6 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 ;; THE SOFTWARE.
 
-
 ;; Use org-babel to render and run the config
 (require 'org)
 (org-babel-load-file (concat user-emacs-directory "README.org"))
