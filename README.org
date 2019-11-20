@@ -1299,3 +1299,8 @@
     :config
     (company-terraform-init))
     #+END_SRC
+*** Haxe (haxe.org)
+**** =battle-haxe=
+    #+BEGIN_SRC emacs-lisp
+    (use-package haxe-mode)
+    #+END_SRC
