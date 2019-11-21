@@ -1003,12 +1003,25 @@
 
      ;; all-the-icons support
      (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
+
+     ;; Always show hidden files
+     (setq neo-show-hidden-files t)
+
+     ;; Hide cursor in NeoTree buffer and turn on line higlight
+     (setq neo-hide-cursor t)
+
+     ;; Update neotree buffer automatically
+     (setq neo-autorefresh t)
+
+     ;; No modeline for this one
+     (setq neo-mode-line-type 'none)
+
      #+END_SRC
 
 **** Prefix Key Bindings
 ***** Toggle =neotree=
     #+BEGIN_SRC emacs-lisp
-    (axltxl/define-key "ft" 'neotree-toggle)
+    (axltxl/define-key "TAB" 'neotree-toggle)
     #+END_SRC
 
 ***** Open =neotree= at project location set by =projectile=
