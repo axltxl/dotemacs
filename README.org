@@ -502,6 +502,11 @@
     #+END_SRC
 
 ** ctags
+*** =universal-ctags= configuration file location
+   #+BEGIN_SRC emacs-lisp
+   (setq axltxl/ctags-options-file (concat user-emacs-directory "ctags.conf"))
+   #+END_SRC
+
 *** =counsel-etags=
     #+BEGIN_SRC emacs-lisp
     (use-package counsel-etags :after counsel
@@ -521,7 +526,10 @@
             'counsel-etags-virtual-update-tags 'append 'local)))
     :config
     (setq counsel-etags-update-interval 60)
-    (push "build" counsel-etags-ignore-directories))
+    (push "build" counsel-etags-ignore-directories)
+
+    ;;Set custom configuration file
+    (setq counsel-etags-ctags-options-file axltxl/ctags-options-file))
     #+END_SRC
 
     #+BEGIN_SRC emacs-lisp
