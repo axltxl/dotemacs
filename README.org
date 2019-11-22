@@ -895,9 +895,13 @@
 ** =ivy=
 **** Package configuration
     #+BEGIN_SRC emacs-lisp
+    (use-package wgrep)
+    #+END_SRC
+
+    #+BEGIN_SRC emacs-lisp
     (use-package counsel
     :demand t
-    :after (general projectile)
+    :after (general wgrep projectile)
 
     ;; Configuration
     :config
@@ -914,6 +918,19 @@
     ;; Key bindings for this layer
     ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;
     :general
+
+    ;; Replace standard vi-style search with swiper
+    (:states '(normal motion emacs)
+     "/" 'swiper)
+
+    ;; swiper minor modes key bindings
+    ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    (:keymaps 'swiper-map
+     :prefix axltxl/major-mode-leader-key
+     "r"   'swiper-query-replace)
+
+    ;; Navigation within ivy-based buffers
+    ;; (like counsel for example)
     (:keymaps 'ivy-mode-map
         "M-j" 'ivy-next-line
         "M-k" 'ivy-previous-line
@@ -922,9 +939,9 @@
     #+END_SRC
 
 **** Prefixed Key Bindings
-***** M-x (thanks to =counsel=)
+
     #+BEGIN_SRC emacs-lisp
-    (axltxl/define-key "SPC" 'counsel-M-x)
+    (axltxl/define-key "p/" 'counsel-git-grep)
     #+END_SRC
 
 ** =neotree=
