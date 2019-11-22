@@ -101,6 +101,8 @@
         "e"  '(nil :which-key "emacs")
         "ep" '(nil :which-key "packages")
         "b"  '(nil :which-key "buffer")
+        "h"  '(nil :which-key "help")
+        "hd" '(nil :which-key "describe")
         "w"  '(nil :which-key "window")
         "g"  '(nil :which-key "git")
         "j"  '(nil :which-key "jump")
@@ -214,6 +216,13 @@
      #+BEGIN_SRC emacs-lisp
      (axltxl/define-key "epu" 'auto-package-update-now)
      #+END_SRC
+
+** M-x
+    The one binding where everything begins
+
+    #+BEGIN_SRC emacs-lisp
+    (axltxl/define-key "SPC" 'execute-extended-command)
+    #+END_SRC
 
 * Text Editing
 ** Auto completion (=company-mode=)
@@ -467,6 +476,14 @@
     (axltxl/define-key "pcs" 'counsel-etags-scan-code)
     #+END_SRC
 
+** Help
+**** Prefixed Key Bindings
+    #+BEGIN_SRC emacs-lisp
+    (axltxl/define-key
+        "hdf" 'describe-function
+        "hdb" 'general-describe-keybindings
+        "hdm" 'describe-mode)
+    #+END_SRC
 * User Interface
 ** Window Management
 *** Windows
