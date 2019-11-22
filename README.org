@@ -1,6 +1,10 @@
 #+TITLE: DotEmacs
 #+AUTHOR: A. J. Ricoveri (me@axltxl.xyz)
 
+* Requirements
+- =emacs= 26+
+- =universal-ctags=
+
 * Table of contents
 - [[#the-very-basics][The very basics]]
   - [[#packages-bootstrap][Packages bootstrap]]
