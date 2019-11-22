@@ -33,7 +33,6 @@
   - [[#backup-files-management][Backup files management]]
   - [[#real-auto-save][real-auto-save]]
   - [[#evil-nerd-commenter][evil-nerd-commenter]]
-  - [[#avy][avy]]
   - [[#text-scaling][Text scaling]]
   - [[#quite-useful-to-know-where-a-buffer-ends][Quite useful to know where a buffer ends]]
   - [[#remove-trailing-whitespace-upon-saving-a-buffer][Remove trailing whitespace upon saving a buffer]]
@@ -430,20 +429,6 @@
     #+BEGIN_SRC emacs-lisp
     (axltxl/define-key ";" 'evilnc-comment-operator)
     #+END_SRC
-
-** =avy=
-   emacs + =easymotion= = =avy=
-
-*** Package configuration
-   #+BEGIN_SRC emacs-lisp
-   (use-package avy)
-   #+END_SRC
-
-*** Prefixed Key Bindings
-   #+BEGIN_SRC emacs-lisp
-   (axltxl/define-key "jw" 'avy-goto-word-1)
-   (axltxl/define-key "jl" 'avy-goto-line)
-   #+END_SRC
 
 ** Text scaling
    Increase/decrease font size
